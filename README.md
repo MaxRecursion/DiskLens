@@ -12,6 +12,18 @@ bound to the exact plan.
 ![Explorer](docs/appstore/screenshots/2880x1800/01-explorer.jpg)
 ![Cleanup](docs/appstore/screenshots/2880x1800/02-cleanup.jpg)
 
+## Download
+
+**[⬇ Download DiskLens for macOS](https://github.com/MaxRecursion/DiskLens/releases/latest)**: a
+universal app (Apple silicon + Intel) for macOS 14 or later. The DMG includes `disklens-cli`, which
+is also available as a separate zip.
+
+Release builds are not notarized yet (notarization needs a paid Apple Developer membership), so
+macOS blocks the first launch. On macOS 15 or later, open the app once, then click **Open Anyway**
+in System Settings → Privacy & Security. On macOS 14, right-click the app and choose **Open**. Or
+run `xattr -dr com.apple.quarantine /Applications/DiskLens.app`. You can also
+[build it from source](#build-test-launch).
+
 ## Support DiskLens
 
 DiskLens is free and open source, built and maintained by one developer in their spare time. If it
@@ -123,6 +135,15 @@ Sources/DiskLensApp           SwiftUI app (dashboard, treemap Canvas, inspector,
 Sources/disklens-cli          headless front end to the same core
 scripts/license/              license-key tool (keygen/issue/verify) — never bundled
 ```
+
+## Privacy
+
+DiskLens collects no data: no analytics, no telemetry, no accounts. Scan results, recommendations
+and cleanup reports stay on your Mac in `~/Library/Application Support/DiskLens/` (Settings ▸
+Privacy ▸ "Delete Scan Data and Reports…" removes them). The GitHub releases (and any
+`scripts/` build) make no network requests of their own; only the Xcode "DiskLens Pro (Direct)"
+build checks for updates via Sparkle, which can be turned off. License keys are verified offline,
+and Mac App Store purchases are handled entirely by Apple.
 
 ## Safety model
 
