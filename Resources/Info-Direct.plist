@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Info.plist for the direct (Developer ID) Xcode build: adds Sparkle and the purchase page. -->
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key><string>en</string>
+	<key>CFBundleLocalizations</key><array><string>en</string></array>
+	<key>CFBundleName</key><string>DiskLens</string>
+	<key>CFBundleDisplayName</key><string>DiskLens</string>
+	<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundlePackageType</key><string>APPL</string>
+	<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CFBundleIconName</key><string>AppIcon</string>
+	<key>LSMinimumSystemVersion</key><string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>LSApplicationCategoryType</key><string>public.app-category.utilities</string>
+	<key>NSHumanReadableCopyright</key><string>© 2026 Akshay Kulkarni</string>
+	<key>NSHighResolutionCapable</key><true/>
+	<key>ITSAppUsesNonExemptEncryption</key><false/>
+	<key>NSDesktopFolderUsageDescription</key><string>DiskLens measures the names, sizes and dates of files on your Desktop and compares large files to find exact duplicates. Nothing leaves your Mac, and nothing is removed without your approval.</string>
+	<key>NSDocumentsFolderUsageDescription</key><string>DiskLens measures the names, sizes and dates of files in Documents and compares large files to find exact duplicates. Nothing leaves your Mac, and nothing is removed without your approval.</string>
+	<key>NSDownloadsFolderUsageDescription</key><string>DiskLens measures the names, sizes and dates of files in Downloads to find large installers and exact duplicates. Nothing leaves your Mac, and nothing is removed without your approval.</string>
+	<key>NSRemovableVolumesUsageDescription</key><string>DiskLens measures file sizes on volumes you choose to scan.</string>
+	<key>NSNetworkVolumesUsageDescription</key><string>DiskLens measures file sizes on network volumes you choose to scan.</string>
+	<key>DiskLensSupportURL</key><string>https://example.com/disklens/support</string>
+	<key>DiskLensPrivacyPolicyURL</key><string>https://example.com/disklens/privacy</string>
+	<key>DiskLensTermsURL</key><string>https://example.com/disklens/terms</string>
+	<key>DiskLensPurchaseURL</key><string>https://example.com/disklens/buy</string>
+	<!-- Sparkle 2: appcast URL (HTTPS) and the EdDSA public key printed by Sparkle's generate_keys. -->
+	<key>SUFeedURL</key><string>https://example.com/disklens/appcast.xml</string>
+	<key>SUPublicEDKey</key><string>REPLACE_WITH_SPARKLE_PUBLIC_ED_KEY</string>
+	<key>SUEnableAutomaticChecks</key><true/>
+	<key>SUScheduledCheckInterval</key><integer>86400</integer>
+	<key>SUEnableSystemProfiling</key><false/>
+</dict>
+</plist>

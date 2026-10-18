@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DiskLens Support</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+<header><img src="icon.png" alt=""><div><h1>DiskLens Support</h1><p class="muted">See where your disk space went — and reclaim it safely.</p></div></header>
+<h2>Getting started</h2>
+<p>Open DiskLens and follow the welcome screen. In the Mac App Store edition, grant your Home folder (and optionally /Applications) so DiskLens can measure them, then click <strong>Start Scan</strong>.</p>
+<h2>Frequently asked questions</h2>
+<div class="card"><strong>Why does a folder say “unknown” instead of a size?</strong><br>macOS protects some locations (Mail, Messages, other apps' data, the Trash), and DiskLens can only see folders you granted. It reports them as unknown instead of pretending they are empty. Add folders in DiskLens ▸ Settings ▸ Scanning.</div>
+<div class="card"><strong>Why did less space come back than estimated?</strong><br>Other apps keep writing to disk, macOS may still be releasing space, and items moved to the Trash only free space once the Trash is emptied. DiskLens's estimates already exclude data shared through APFS clones and hard links.</div>
+<div class="card"><strong>Can DiskLens delete my documents or photos?</strong><br>No. Personal files, backups, virtual-machine disks and app data are listed for your review only. Everything else requires you to select it, preview the exact plan and approve it.</div>
+<div class="card"><strong>Can I undo a cleanup?</strong><br>Turn on “Move to Trash instead of deleting” in the cleanup preview; items can then be restored from the Trash until you empty it. Caches and build folders that are deleted are recreated by their tools when needed.</div>
+<div class="card"><strong>Does DiskLens send any data?</strong><br>No. DiskLens collects no data. The App Store edition has no network access of its own; the direct edition only checks for updates. See the <a href="privacy.html">privacy policy</a>.</div>
+<h2>Free and Pro</h2>
+<div class="card"><strong>What is free?</strong><br>Scanning, the treemap, categories, largest files, search, the scan manifest, change detection, every cleanup recommendation with its estimate and evidence, previews, dry runs, all safety checks, and moving single items to the Trash. Your first one-click cleanup (up to 2 GB) is free too.</div>
+<div class="card"><strong>What does Pro add?</strong><br>One-click cleanup of approved plans, the duplicate finder, the developer rule pack as one-click cleanup, scheduled scans with a menu-bar monitor and low-space alerts, report export and scan history. The direct edition also includes the <code>disklens-cli</code> command-line tool.</div>
+<div class="card"><strong>I bought Pro on another Mac (App Store).</strong><br>Open DiskLens ▸ Settings ▸ License and click <strong>Restore Purchases</strong> while signed in with the same Apple Account. Family Sharing members get Pro too.</div>
+<div class="card"><strong>Where do I enter my license key (direct edition)?</strong><br>DiskLens ▸ Settings ▸ License, or the “Enter License Key…” button on the upgrade sheet. Paste the whole key starting with <code>DLK1.</code>. To move it to a new Mac, click “Deactivate on This Mac” first. For CI machines: <code>disklens-cli license activate --key-file key.txt</code>.</div>
+<div class="card"><strong>Refunds</strong><br>App Store purchases: request a refund at <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>; DiskLens removes Pro automatically when Apple refunds. Direct purchases: contact us or the reseller named on your receipt.</div>
+<h2>Contact</h2>
+<p>Email: <a href="mailto:support@example.com">support@example.com</a> ← replace with your support address before publishing.</p>
+<footer>© 2026 Akshay Kulkarni · <a href="privacy.html">Privacy Policy</a></footer>
+</main></body></html>

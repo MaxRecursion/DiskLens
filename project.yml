@@ -1,0 +1,152 @@
+# Xcode project for both editions (App Store Connect only accepts Xcode-built uploads; StoreKit
+# testing and Sparkle linking also need Xcode). Package.swift remains for SwiftPM builds and tests.
+#
+#   brew install xcodegen && xcodegen generate      → DiskLens.xcodeproj
+#   Schemes: "DiskLens" (Mac App Store), "DiskLens Pro (Direct)" (Developer ID + Sparkle), "disklens-cli".
+#   Set DEVELOPMENT_TEAM below (or in Xcode ▸ Signing & Capabilities) before archiving.
+name: DiskLens
+options:
+  bundleIdPrefix: com.akshaykulkarni
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+packages:
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.6.0"
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: ""                 # ← your 10-character Team ID
+    ENABLE_HARDENED_RUNTIME: YES
+    DEAD_CODE_STRIPPING: YES
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    SWIFT_EMIT_LOC_STRINGS: YES
+targets:
+  DiskLensCore:
+    type: library.static
+    platform: macOS
+    sources:
+      - path: Sources/DiskLensCore
+    settings:
+      base:
+        PRODUCT_NAME: DiskLensCore
+        SKIP_INSTALL: YES
+        DEFINES_MODULE: YES
+
+  # Mac App Store edition: App Sandbox + Hardened Runtime + StoreKit 2.
+  DiskLens:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/DiskLensApp
+        excludes: ["Update/**"]
+      - path: Resources/Assets.xcassets
+      - path: Resources/Localizable.xcstrings
+      - path: Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      - path: Resources/StoreKit/DiskLens.storekit
+        buildPhase: none
+    dependencies:
+      - target: DiskLensCore
+      - sdk: StoreKit.framework
+    settings:
+      base:
+        PRODUCT_NAME: DiskLens
+        PRODUCT_BUNDLE_IDENTIFIER: com.akshaykulkarni.DiskLens
+        INFOPLIST_FILE: Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: Resources/DiskLens-AppStore.entitlements
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_APP_SANDBOX: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG DISKLENS_SNAPSHOTS"
+
+  # Direct (Developer ID) edition: Hardened Runtime, notarized, Sparkle 2, license keys + trial.
+  DiskLensDirect:
+    type: application
+    platform: macOS
+    sources:
+      - path: Sources/DiskLensApp
+      - path: Resources/Assets.xcassets
+      - path: Resources/Localizable.xcstrings
+      - path: Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+    dependencies:
+      - target: DiskLensCore
+      - package: Sparkle
+    settings:
+      base:
+        PRODUCT_NAME: DiskLens
+        PRODUCT_BUNDLE_IDENTIFIER: com.akshaykulkarni.DiskLens.direct
+        INFOPLIST_FILE: Resources/Info-Direct.plist
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_ENTITLEMENTS: Resources/DiskLens-Direct.entitlements
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Developer ID Application"
+        OTHER_CODE_SIGN_FLAGS: "--timestamp"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        COMBINE_HIDPI_IMAGES: YES
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: "DEBUG DISKLENS_SNAPSHOTS"
+          CODE_SIGN_IDENTITY: "-"
+
+  disklens-cli:
+    type: tool
+    platform: macOS
+    sources:
+      - path: Sources/disklens-cli
+    dependencies:
+      - target: DiskLensCore
+    settings:
+      base:
+        PRODUCT_NAME: disklens-cli
+        PRODUCT_BUNDLE_IDENTIFIER: com.akshaykulkarni.DiskLens.cli
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Developer ID Application"
+        OTHER_CODE_SIGN_FLAGS: "--timestamp"
+      configs:
+        Debug:
+          CODE_SIGN_IDENTITY: "-"
+
+  DiskLensCoreTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/DiskLensCoreTests
+    dependencies:
+      - target: DiskLensCore
+
+schemes:
+  DiskLens:
+    build:
+      targets:
+        DiskLens: all
+    run:
+      config: Debug
+      storeKitConfiguration: Resources/StoreKit/DiskLens.storekit
+    test:
+      targets: [DiskLensCoreTests]
+    archive:
+      config: Release
+  "DiskLens Pro (Direct)":
+    build:
+      targets:
+        DiskLensDirect: all
+        disklens-cli: all
+    run:
+      config: Debug
+    test:
+      targets: [DiskLensCoreTests]
+    archive:
+      config: Release
+  disklens-cli:
+    build:
+      targets:
+        disklens-cli: all

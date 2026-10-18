@@ -1,0 +1,13 @@
+.build/
+dist/
+DiskLens.xcodeproj/
+# Private license-signing key: never commit, never bundle. Back it up offline.
+.signing/
+*.p12
+*.key
+.DS_Store
+# Personal scan output from the author's own Mac (real paths) — kept local, never published.
+REPORT.md
+cleanup-plan.md
+plans/
+docs/screenshots/
